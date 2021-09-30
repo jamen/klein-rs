@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "klein",
+    "klein-sys",
+]
+resolver = "2"

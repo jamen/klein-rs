@@ -1,0 +1,3 @@
+[submodule "klein-sys/Klein"]
+	path = klein-sys/Klein
+	url = https://github.com/jeremyong/klein

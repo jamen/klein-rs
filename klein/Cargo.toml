@@ -1,0 +1,7 @@
+[package]
+name = "klein"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+klein-sys = { path = "../klein-sys", version = "0.1.0" }
