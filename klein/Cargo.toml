@@ -2,6 +2,12 @@
 name = "klein"
 version = "0.1.0"
 edition = "2018"
+license = "MIT"
+description = "Bindings to the Klein PGA3D library"
+homepage = "https://github.com/jamen/klein-rs"
+repository = "https://github.com/jamen/klein-rs"
+documentation = "https://docs.rs/klein"
+readme = "../readme.md"
 
 [dependencies]
 klein-sys = { path = "../klein-sys", version = "0.1.0" }

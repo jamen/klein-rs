@@ -3,7 +3,11 @@ name = "klein-sys"
 version = "0.1.0"
 edition = "2018"
 license = "MIT"
-description = "Rust bindings to the Klein PGA3D library"
+description = "Low-level bindings to the Klein PGA3D library"
+homepage = "https://github.com/jamen/klein-rs"
+repository = "https://github.com/jamen/klein-rs"
+documentation = "https://docs.rs/klein-sys"
+readme = "../readme.md"
 build = "build.rs"
 
 [build-dependencies]
