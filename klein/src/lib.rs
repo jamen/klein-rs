@@ -4,8 +4,9 @@ use klein_sys::{
     kln_compose_motors, kln_compose_rotor_translator, kln_compose_rotors,
     kln_compose_translator_rotor, kln_compose_translators, kln_direction, kln_line, kln_line_init,
     kln_motor, kln_motor_line, kln_motor_plane, kln_motor_point, kln_plane, kln_plane_init,
-    kln_point, kln_point_init, kln_reflect_plane, kln_reflect_point, kln_rotate_line,
-    kln_rotate_plane, kln_rotate_point, kln_rotor, kln_translator, line_exp, motor_log,
+    kln_point, kln_point_init, kln_reflect_line, kln_reflect_plane, kln_reflect_point,
+    kln_rotate_line, kln_rotate_plane, kln_rotate_point, kln_rotor, kln_translate_line,
+    kln_translate_plane, kln_translate_point, kln_translator, line_exp, motor_log,
 };
 
 #[repr(transparent)]
@@ -23,22 +24,22 @@ impl Plane {
 
     #[inline]
     pub fn reflect(&self, plane: &Plane) -> Self {
-        unsafe { Self(kln_reflect_plane(plane.0, self.0)) }
+        unsafe { Self(kln_reflect_plane(&plane.0, &self.0)) }
     }
 
     #[inline]
     pub fn rotate(&self, rotor: &Rotor) -> Self {
-        unsafe { Self(kln_rotate_plane(rotor.0, self.0)) }
+        unsafe { Self(kln_rotate_plane(&rotor.0, &self.0)) }
     }
 
     #[inline]
     pub fn translate(&self, translator: &Translator) -> Self {
-        unsafe { Self(kln_translate_plane(translator.0, self.0)) }
+        unsafe { Self(kln_translate_plane(&translator.0, &self.0)) }
     }
 
     #[inline]
     pub fn motor(&self, motor: &Motor) -> Self {
-        unsafe { Self(kln_motor_plane(motor.0, self.0)) }
+        unsafe { Self(kln_motor_plane(&motor.0, &self.0)) }
     }
 }
 
@@ -57,27 +58,27 @@ impl Line {
 
     #[inline]
     pub fn exp(&self) -> Motor {
-        unsafe { Motor(line_exp(self.0)) }
+        unsafe { Motor(line_exp(&self.0)) }
     }
 
     #[inline]
     pub fn reflect(&self, plane: &Plane) -> Self {
-        unsafe { Self(kln_reflect_line(plane.0, self.0)) }
+        unsafe { Self(kln_reflect_line(&plane.0, &self.0)) }
     }
 
     #[inline]
     pub fn rotate(&self, rotor: &Rotor) -> Self {
-        unsafe { Self(kln_rotate_line(rotor.0, self.0)) }
+        unsafe { Self(kln_rotate_line(&rotor.0, &self.0)) }
     }
 
     #[inline]
     pub fn translate(&self, translator: &Translator) -> Self {
-        unsafe { Self(kln_translate_line(translator.0, self.0)) }
+        unsafe { Self(kln_translate_line(&translator.0, &self.0)) }
     }
 
     #[inline]
     pub fn motor(&self, motor: &Motor) -> Self {
-        unsafe { Self(kln_motor_line(motor.0, self.0)) }
+        unsafe { Self(kln_motor_line(&motor.0, &self.0)) }
     }
 }
 
@@ -96,22 +97,22 @@ impl Point {
 
     #[inline]
     pub fn reflect(&self, plane: &Plane) -> Self {
-        unsafe { Self(kln_reflect_point(plane.0, self.0)) }
+        unsafe { Self(kln_reflect_point(&plane.0, &self.0)) }
     }
 
     #[inline]
     pub fn rotate(&self, rotor: &Rotor) -> Self {
-        unsafe { Self(kln_rotate_point(rotor.0, self.0)) }
+        unsafe { Self(kln_rotate_point(&rotor.0, &self.0)) }
     }
 
     #[inline]
     pub fn translate(&self, translator: &Translator) -> Self {
-        unsafe { Self(kln_translate_point(translator.0, self.0)) }
+        unsafe { Self(kln_translate_point(&translator.0, &self.0)) }
     }
 
     #[inline]
     pub fn motor(&self, motor: &Motor) -> Self {
-        unsafe { Self(kln_motor_point(motor.0, self.0)) }
+        unsafe { Self(kln_motor_point(&motor.0, &self.0)) }
     }
 }
 
@@ -126,7 +127,7 @@ pub struct Translator(kln_translator);
 impl Translator {
     #[inline]
     pub fn compose_translators(&self, translator: &Self) -> Self {
-        unsafe { Self(kln_compose_translators(rotor.0, self.0)) }
+        unsafe { Self(kln_compose_translators(&translator.0, &self.0)) }
     }
 }
 
@@ -137,22 +138,22 @@ pub struct Motor(kln_motor);
 impl Motor {
     #[inline]
     pub fn log(&self) -> Line {
-        unsafe { Line(motor_log(self.0)) }
+        unsafe { Line(motor_log(&self.0)) }
     }
 
     #[inline]
     pub fn compose_motors(&self, motor: &Self) -> Self {
-        unsafe { Self(kln_compose_motors(motor.0, self.0)) }
+        unsafe { Self(kln_compose_motors(&motor.0, &self.0)) }
     }
 
     #[inline]
     pub fn compose_translator_rotor(translator: &Translator, rotor: &Rotor) -> Self {
-        unsafe { Self(kln_compose_translator_rotor(translator.0, rotor.0)) }
+        unsafe { Self(kln_compose_translator_rotor(&translator.0, &rotor.0)) }
     }
 
     #[inline]
     pub fn compose_rotor_translator(rotor: &Rotor, translator: &Translator) -> Self {
-        unsafe { Self(kln_compose_rotor_translator(rotor.0, translator.0)) }
+        unsafe { Self(kln_compose_rotor_translator(&rotor.0, &translator.0)) }
     }
 }
 
@@ -162,7 +163,7 @@ pub struct Rotor(kln_rotor);
 
 impl Rotor {
     #[inline]
-    fn compose_rotors(&self, rotor: &Self) -> Self {
-        unsafe { Self(kln_compose_rotors(rotor.0, self.0)) }
+    pub fn compose_rotors(&self, rotor: &Self) -> Self {
+        unsafe { Self(kln_compose_rotors(&rotor.0, &self.0)) }
     }
 }
