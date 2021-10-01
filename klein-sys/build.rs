@@ -5,6 +5,8 @@ fn main() {
     cc::Build::new()
         .file("Klein/c_src/klein_c.cpp")
         .cpp(true)
+        .flag_if_supported("-msse3")
+        .flag_if_supported("-msse4.1")
         .include("Klein/public")
         .compile("klein");
 
