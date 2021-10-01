@@ -1,6 +1,6 @@
 [package]
 name = "klein"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2018"
 license = "MIT"
 description = "Bindings to the Klein PGA3D library"
@@ -10,4 +10,4 @@ documentation = "https://docs.rs/klein"
 readme = "../readme.md"
 
 [dependencies]
-klein-sys = { path = "../klein-sys", version = "0.1.0" }
+klein-sys = { path = "../klein-sys", version = "0.1.1" }
